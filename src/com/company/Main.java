@@ -28,7 +28,7 @@ public class Main {
 
               else
               {
-                  upper = false; //test
+                  upper = false;
               }
 
 
