@@ -8,77 +8,162 @@ public class Main {
 
     public static void main(String[] args) {
 
-        String input = JOptionPane.showInputDialog("Enter text to be encrypted using ROT13");
+        boolean encrypt;
 
-        StringBuilder result = new StringBuilder();
+        Object[] options = {"Encrypt", "Decrypt"};
 
-        for(int i = 0; i < input.length(); i++)
+        int a = JOptionPane.showOptionDialog(null,
+                "Would you like to encrypt or decrypt?",
+                "Select a choice", JOptionPane.DEFAULT_OPTION, JOptionPane.INFORMATION_MESSAGE,
+                null, options, options[0]);
+
+
+        if(a == 0)
         {
+            encrypt = true;
+        }
 
-          char inputChar = input.charAt(i);
+        else if (a == 1)
+        {
+            encrypt = false;
+            System.out.println("x");
+        }
 
-          if(Character.isAlphabetic(inputChar))
-          {
-              boolean upper;
-              char rotChar = ' ';
+        else
+        {
+            encrypt = false;
+            System.exit(0);
+        }
 
-              if(Character.isUpperCase(inputChar))
-              {
-                  upper = true;
-              }
+        if(encrypt) {
+            String input = JOptionPane.showInputDialog("Enter text to be encrypted using ROT13");
 
-              else
-              {
-                  upper = false;
-              }
+            StringBuilder result = new StringBuilder();
+
+            for (int i = 0; i < input.length(); i++) {
+
+                char inputChar = input.charAt(i);
+
+                if (Character.isAlphabetic(inputChar)) {
+                    boolean upper;
+                    char rotChar = ' ';
+
+                    if (Character.isUpperCase(inputChar)) {
+                        upper = true;
+                    } else {
+                        upper = false;
+                    }
 
 
+                    int asciiChar = toAscii(input.charAt(i));
+                    System.out.println(asciiChar);
 
-              int asciiChar = toAscii(input.charAt(i));
-
-              for(int h = 0; h < 13; h++)
-              {
-
+                    for (int h = 0; h < 13; h++) {
 
 
-                  asciiChar++;
-                  rotChar = (char) (asciiChar);
+                        asciiChar++;
+                        rotChar = (char) (asciiChar);
 
-                  if(!(Character.isAlphabetic(rotChar)))
-                  {
-                      if(upper)
-                      {
-                          asciiChar = 65;
-                      }
+                        if (!(Character.isAlphabetic(rotChar))) {
+                            if (upper) {
+                                asciiChar = 65;
+                            } else {
+                                System.out.println("not");
+                                asciiChar = 97;
 
-                      else
-                      {
-                          asciiChar = 97;
-                      }
-                  }
+                            }
+                        }
 
-              }
+                        System.out.println(asciiChar);
 
-              result.append(rotChar);
-          }
+                    }
 
-          else
-          {
-              result.append(inputChar);
-          }
+                    result.append(rotChar);
+                } else {
+                    result.append(inputChar);
+                }
+
+
+            }
+
+
+            JFrame finalResult = new JFrame();
+
+            JOptionPane.showMessageDialog(finalResult, "ROT13 Line: " + result.toString());
+
+            System.out.println("Exit");
+            System.exit(0);
 
 
         }
 
+        else // Selected Decrypt
+        {
 
-        JFrame finalResult = new JFrame();
+            String input = JOptionPane.showInputDialog("Enter text to be decrypted using ROT13");
 
-        JOptionPane.showMessageDialog(finalResult,"ROT13 Line: " + result.toString());
+            StringBuilder result = new StringBuilder();
 
-        System.exit(0);
+            for(int i = 0; i < input.length(); i++)
+            {
+                Character inChar = input.charAt(i);
+                int intChar = toAscii(inChar);
+
+                if(Character.isAlphabetic(inChar))
+                {
+                    boolean upper;
+
+                    if(Character.isUpperCase(inChar))
+                    {
+                        upper = true;
+                    }
+
+                    else
+                    {
+                        upper = false;
+                    }
 
 
 
+                    for(int h = 0; h < 13; h++)
+                    {
+                        intChar--;
+
+                        Character decChar = (char) intChar;
+
+                        if(!(Character.isAlphabetic(decChar)))
+                        {
+                            if(upper)
+                            {
+                                decChar = 'Z';
+                            }
+
+                            else
+                            {
+                                decChar = 'z';
+
+                            }
+                        }
+
+                        intChar = toAscii(decChar);
+
+
+                    }
+
+                }
+
+                Character finalChar = (char) intChar;
+                result.append(finalChar);
+            }
+
+
+            JFrame finalResult = new JFrame();
+
+            JOptionPane.showMessageDialog(finalResult, "Decrypted ROT13 Line: " + result.toString());
+
+            System.exit(0);
+
+        }
 
 
     }
@@ -87,8 +172,11 @@ public class Main {
 
     public static int toAscii(char charToUse)
     {
-        int asciiChar = (int) charToUse;
-        return asciiChar;
+
+            int asciiChar = (int) charToUse;
+            return asciiChar;
+
+
     }
 
 
