@@ -188,6 +188,8 @@ public class Main {
         JFrame finalResult = new JFrame();
         JOptionPane.showMessageDialog(finalResult, resultText + output);
 
+        System.exit(0);
+
 
     }
 
