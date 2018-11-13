@@ -14,6 +14,7 @@ public class Main {
 
         for(int i = 0; i < input.length(); i++)
         {
+
           char inputChar = input.charAt(i);
 
           if(Character.isAlphabetic(inputChar))
@@ -35,8 +36,11 @@ public class Main {
 
               int asciiChar = toAscii(input.charAt(i));
 
-              for(int h = 0; h < 13; i++)
+              for(int h = 0; h < 13; h++)
               {
+
+
+
                   asciiChar++;
                   rotChar = (char) (asciiChar);
 
